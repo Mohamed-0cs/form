@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+    </head>
+    <body>
+
+        <h2>Form with Validation</h2>
+        <form id="simpleForm" onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <p id="nameError" style="color: red;"></p>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <p id="emailError" style="color: red;"></p>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age">
+            <p id="ageError" style="color: red;"></p>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <p id="output"></p>
+
+        <script>
+        function validateForm() {
+
+            let isValid = true;
+
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('ageError').textContent = '';
+
+            
+            const name = document.getElementById('name').value;
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required.';
+                isValid = false;
+            } 
+            else if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Invalid email format.';
+                isValid = false;
+            }
+
+        
+            const age = document.getElementById('age').value;
+            if (age === '') {
+                document.getElementById('ageError').textContent = 'Age is required.';
+                isValid = false;
+            } 
+            else if (isNaN(age) || age <= 0) {
+                document.getElementById('ageError').textContent = 'Please enter a valid age.';
+                isValid = false;
+            }
+
+            
+            if (isValid) {
+                document.getElementById('output').textContent = `Name: ${name}, Email: ${email}, Age: ${age}`;
+            }
+
+            return false; // Prevent form submission for demonstration purposes
+        }
+    </script>
+
+    </body>
+</html>
